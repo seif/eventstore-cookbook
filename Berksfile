@@ -1,4 +1,4 @@
 site :opscode
 
 metadata
-cookbook 'mono', path: '../cookbook-mono' 
+cookbook 'mono', github: 'seif/cookbook-mono' 
