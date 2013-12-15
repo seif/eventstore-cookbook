@@ -23,3 +23,9 @@ execute "eventstore_unpack" do
   command "mkdir -p #{node['eventstore']['install_dir']} && tar -xvf #{bin_filename} -C #{node['eventstore']['install_dir']}"
   action :nothing
 end
+
+
+template "/etc/init/eventstore.conf" do
+    source "upstart/eventstore.conf.erb"
+end
+
