@@ -1,5 +1,5 @@
-source_uri = "https://github.com/EventStore/EventStore/releases/download/ES-Mono-v#{node['eventstore']['version']}/"
-bin_filename = "EventStore-Mono-#{node['eventstore']['version']}.tgz"
+source_uri = node['eventstore']['source_uri'] 
+bin_filename = node['eventstore']['bin_filename']
 
 group "eventstore" do
     system true
@@ -10,6 +10,11 @@ user "eventstore" do
     shell "/bin/bash"
     home node['eventstore']['data_dir']
     system true
+end
+
+directory node['eventstore']['config_dir'] do
+  owner node['eventstore']['user']
+  recursive true
 end
 
 remote_file "#{Chef::Config[:file_cache_path]}/#{bin_filename}" do
@@ -27,5 +32,22 @@ end
 
 template "/etc/init/eventstore.conf" do
     source "upstart/eventstore.conf.erb"
+    variables ({
+      :logs_dir => node['eventstore']['config']['logsdir'],
+      :data_dir => node['eventstore']['data_dir'],
+      :install_dir => node['eventstore']['install_dir'],
+      :command => node['eventstore']['command'],
+      :user => node['eventstore']['user'],
+      :config_file => node['eventstore']['config_file']
+    })
 end
 
+template "#{node['eventstore']['config_file']}" do
+    source "config.json.erb"
+end
+
+service 'eventstore' do
+  provider Chef::Provider::Service::Upstart
+  supports :status => true, :restart => true
+  action :start
+end

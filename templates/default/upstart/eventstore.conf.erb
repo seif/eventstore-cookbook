@@ -1,8 +1,10 @@
 pre-start script
 
 bash << "EOF"
-  mkdir -p <%= node['eventstore']['log_dir'] %>
-  chown -R eventstore <%= node['eventstore']['log_dir'] %>
+  mkdir -p <%= @logs_dir %>
+  chown -R <%= @user %> <%= @logs_dir %>
+  mkdir -p <%= @data_dir %>
+  chown -R <%= @user %> <%= @data_dir %>
 EOF
 
 end script
@@ -17,4 +19,4 @@ stop on (stopping network-interface
 
 respawn
 
-exec su - eventstore -c 'cd <%= node['eventstore']['install_dir'] %>; mono EventStore.SingleNode.exe %> >> <%= node['eventstore']['log_dir'] %>upstart.log 2>&1'
+exec su - <%= @user %> -c 'cd <%= @install_dir %>; <%= @command %> --config=<%= @config_file %>'
