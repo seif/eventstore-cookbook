@@ -40,10 +40,12 @@ template "/etc/init/eventstore.conf" do
       :user => node['eventstore']['user'],
       :config_file => node['eventstore']['config_file']
     })
+    notifies :restart, "service[eventstore]", :immediately
 end
 
 template "#{node['eventstore']['config_file']}" do
     source "config.json.erb"
+    notifies :restart, "service[eventstore]", :immediately
 end
 
 service 'eventstore' do
