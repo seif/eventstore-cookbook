@@ -73,6 +73,11 @@ Vagrant.configure("2") do |config|
     chef.json = {
       :mono => {
         :install_method => 'ppa',
+      },
+      :eventstore => {
+        :config => {
+          :ip => '33.33.33.10',
+        }
       }
     }
 
