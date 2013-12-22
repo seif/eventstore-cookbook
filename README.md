@@ -8,6 +8,10 @@ OpsCode Chef cookbook to install [EventStore](http://geteventstore.com/ "EventSt
 
 This cookbook allows the installation of the EventStore using OpsCode chef.
 
+# Dependencies
+
+Depends on the [mono](https://github.com/Youscribe/cookbook-mono/) cookbook from github, which has support for later versions of ubuntu, the mono cookbook will need to be used from github as it hasn't yet been updated on the chef community site.
+
 # Getting Started
 
 The cookbook can simply be used by adding "eventstore" to the run list of a node. All the config options for the installation are in the `node['eventstore']` namespace. You can configure the eventstore instance by adding attributes in the `node['eventstore']['config']` namespace. Any attributes added in the config namespace will be used in the generated config.json file. The attributes key  should match the json config key from [EventStore arguments](https://github.com/EventStore/EventStore/wiki/Command-Line-Arguments), e.g. `node['eventstore']['config']['runProjections'] = true`.

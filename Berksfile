@@ -1,4 +1,4 @@
 site :opscode
 
 metadata
-cookbook 'mono', github: 'seif/cookbook-mono' 
+cookbook 'mono', github: 'Youscribe/cookbook-mono' 
