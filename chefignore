@@ -91,6 +91,21 @@ Strainerfile
 .vagrant
 Vagrantfile
 
+# Bundle #
+##########
+Gemfile
+Gemfile.lock
+
+
 # Travis #
 ##########
 .travis.yml
+
+# Thor #
+#######
+Thorfile
+
+# chefignore #
+##############
+# Having to ignore self, as I get uploaded for some reason
+chefignore
