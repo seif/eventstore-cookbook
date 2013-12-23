@@ -14,3 +14,4 @@ default['eventstore']['data_dir'] = '/var/lib/eventstore/'
 
 default['eventstore']['config']['logsdir'] = '/var/log/eventstore/'
 default['eventstore']['config']['db'] = node['eventstore']['data_dir']
+default['eventstore']['config']['runProjections'] = 'ALL'

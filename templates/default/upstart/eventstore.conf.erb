@@ -19,4 +19,6 @@ stop on (stopping network-interface
 
 respawn
 
-exec su - <%= @user %> -c 'cd <%= @install_dir %>; <%= @command %> --config=<%= @config_file %>'
+
+
+exec su - <%= @user %> -c 'cd <%= @install_dir %>; LD_LIBRARY_PATH=<%= @install_dir %> <%= @command %> --config=<%= @config_file %>'

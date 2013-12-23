@@ -14,7 +14,7 @@ Depends on the [mono](https://github.com/Youscribe/cookbook-mono/) cookbook from
 
 # Getting Started
 
-The cookbook can simply be used by adding "eventstore" to the run list of a node. All the config options for the installation are in the `node['eventstore']` namespace. You can configure the eventstore instance by adding attributes in the `node['eventstore']['config']` namespace. Any attributes added in the config namespace will be used in the generated config.json file. The attributes key  should match the json config key from [EventStore arguments](https://github.com/EventStore/EventStore/wiki/Command-Line-Arguments), e.g. `node['eventstore']['config']['runProjections'] = true`.
+The cookbook can simply be used by adding "eventstore" to the run list of a node. All the config options for the installation are in the `node['eventstore']` namespace. You can configure the eventstore instance by adding attributes in the `node['eventstore']['config']` namespace. Any attributes added in the config namespace will be used in the generated config.json file. The attributes key  should match the json config key from [EventStore arguments](https://github.com/EventStore/EventStore/wiki/Command-Line-Arguments), e.g. `node['eventstore']['config']['runProjections'] = 'ALL'`.
 
 # Attributes
 * node['eventstore']['version'] Version of eventstore to install. Default is 2.0.1
