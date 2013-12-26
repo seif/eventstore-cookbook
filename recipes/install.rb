@@ -20,13 +20,13 @@ end
 remote_file "#{Chef::Config[:file_cache_path]}/#{bin_filename}" do
   source source_uri + bin_filename 
   not_if { File.exists?("#{Chef::Config[:file_cache_path]}/#{bin_filename}") }
-  notifies :run, "execute[eventstore_unpack]", :immediately
 end
 
 execute "eventstore_unpack" do
   cwd Chef::Config[:file_cache_path]
   command "mkdir -p #{node['eventstore']['install_dir']} && tar -xvf #{bin_filename} -C #{node['eventstore']['install_dir']}"
-  action :nothing
+  action :run
+  not_if { File.directory?("#{node['eventstore']['install_dir']}") }
 end
 
 
