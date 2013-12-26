@@ -1,6 +1,10 @@
 source_uri = node['eventstore']['source_uri'] 
 bin_filename = node['eventstore']['bin_filename']
 
+ include_recipe "apt"
+ include_recipe "mono"
+
+
 group "eventstore" do
     system true
 end
