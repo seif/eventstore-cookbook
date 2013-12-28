@@ -40,6 +40,7 @@ template "/etc/init/eventstore.conf" do
       :logs_dir => node['eventstore']['config']['logsdir'],
       :data_dir => node['eventstore']['data_dir'],
       :install_dir => node['eventstore']['install_dir'],
+      :executable_dir => node['eventstore']['executable_dir'],
       :command => node['eventstore']['command'],
       :user => node['eventstore']['user'],
       :config_file => node['eventstore']['config_file']

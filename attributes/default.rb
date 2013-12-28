@@ -6,6 +6,8 @@ default['eventstore']['source_uri'] = "https://github.com/EventStore/EventStore/
 default['eventstore']['bin_filename'] = "EventStore-Mono-#{node['eventstore']['version']}.tgz"
 
 default['eventstore']['install_dir'] = '/usr/local/eventstore/'
+# 2.5.0rc4 had the binaries in a subfolder, this would allow consumer of cookbook to override executable dir if using non-standard archive
+default['eventstore']['executable_dir'] = "#{node['eventstore']['install_dir']}" 
 default['eventstore']['command'] = 'mono-sgen EventStore.SingleNode.exe'
 default['eventstore']['user'] = 'eventstore'
 default['eventstore']['config_dir'] = '/etc/eventstore/'
