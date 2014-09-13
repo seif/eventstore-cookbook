@@ -1,9 +1,6 @@
 source_uri = node['eventstore']['source_uri'] 
-bin_filename = node['eventstore']['bin_filename']
 
- include_recipe "apt"
- include_recipe "mono"
-
+package_filename = UrlHelper.get_filename(source_uri)
 
 group "eventstore" do
     system true
@@ -21,14 +18,14 @@ directory node['eventstore']['config_dir'] do
   recursive true
 end
 
-remote_file "#{Chef::Config[:file_cache_path]}/#{bin_filename}" do
-  source source_uri + bin_filename 
-  not_if { File.exists?("#{Chef::Config[:file_cache_path]}/#{bin_filename}") }
+remote_file "#{Chef::Config[:file_cache_path]}/#{package_filename}" do
+  source source_uri
+  not_if { File.exists?("#{Chef::Config[:file_cache_path]}/#{package_filename}") }
 end
 
 execute "eventstore_unpack" do
   cwd Chef::Config[:file_cache_path]
-  command "mkdir -p #{node['eventstore']['install_dir']} && tar -xvf #{bin_filename} -C #{node['eventstore']['install_dir']}"
+  command "mkdir -p #{node['eventstore']['install_dir']} && tar -xvf #{package_filename} -C #{node['eventstore']['install_dir']}"
   action :run
   not_if { File.directory?("#{node['eventstore']['install_dir']}") }
 end
@@ -49,7 +46,7 @@ template "/etc/init/eventstore.conf" do
 end
 
 template "#{node['eventstore']['config_file']}" do
-    source "config.json.erb"
+    source "config.yaml.erb"
     notifies :restart, "service[eventstore]", :immediately
 end
 
@@ -58,3 +55,4 @@ service 'eventstore' do
   supports :status => true, :restart => true
   action :start
 end
+
