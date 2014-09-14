@@ -38,16 +38,15 @@ template "/etc/init/eventstore.conf" do
       :data_dir => node['eventstore']['data_dir'],
       :install_dir => node['eventstore']['install_dir'],
       :executable_dir => node['eventstore']['executable_dir'],
-      :command => node['eventstore']['command'],
       :user => node['eventstore']['user'],
       :config_file => node['eventstore']['config_file']
     })
-    notifies :restart, "service[eventstore]", :immediately
+    notifies :restart, "service[eventstore]"
 end
 
 template "#{node['eventstore']['config_file']}" do
     source "config.yaml.erb"
-    notifies :restart, "service[eventstore]", :immediately
+    notifies :restart, "service[eventstore]"
 end
 
 service 'eventstore' do

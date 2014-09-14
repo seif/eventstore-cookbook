@@ -11,14 +11,17 @@ end script
 
 start on (started network-interface
           or started network-manager
-          or started networking)
+          or started networking
+          or runlevel [2345])
 
 stop on (stopping network-interface
          or stopping network-manager
-         or stopping networking)
+         or stopping networking
+         or runlevel [!2345])
 
 respawn
 
+env MONO_GC_DEBUG=clear-at-gc
+env LD_LIBRARY_PATH=<%= @executable_dir %> 
 
-
-exec su - <%= @user %> -c 'cd <%= @executable_dir %>; LD_LIBRARY_PATH=<%= @executable_dir %> <%= @command %> --config=<%= @config_file %>'
+exec start-stop-daemon --start --chuid <%= @user %> --chdir <%= @executable_dir %> --exec ./clusternode -- --config=<%= @config_file %>
